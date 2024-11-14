@@ -21,7 +21,6 @@ function ImageModal({ image, onClose }: ImageModalProps) {
     }
   }, [image]);
 
-  // Gestisci l'evento ESC per chiudere il modal
   useEffect(() => {
     const handleEsc = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
@@ -64,9 +63,13 @@ function ImageModal({ image, onClose }: ImageModalProps) {
           />
           <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/90 to-transparent">
             <h3 className="text-2xl font-bold text-white mb-2">
-              {image.title}
+              {image.title} 
             </h3>
             <p className="text-blue-400">{image.category}</p>
+            <div className="absolute bottom-4 right-4 text-white text-sm">
+            <p className="text-white">© TCDev</p>
+            
+          </div>
           </div>
         </div>
       </div>
