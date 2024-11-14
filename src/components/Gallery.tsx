@@ -55,9 +55,6 @@ function Gallery() {
               className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-110"
             />
             <div className="p-4 bg-gradient-to-t from-black/60 to-transparent absolute bottom-0 left-0 right-0">
-              <h3 className="text-xl font-semibold text-white mb-1">
-                {image.title}
-              </h3>
               <div className="flex items-center justify-between">
                 <span className="text-sm text-gray-400">{image.category}</span>
                 <ImageIcon size={18} className="text-blue-400" />
