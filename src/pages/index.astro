@@ -81,7 +81,10 @@ const photoAlbums = [
             alt="TCDev"
             class="hero-blob-img"
             loading="eager"
+            fetchpriority="high"
             decoding="async"
+            width="900"
+            height="900"
             onerror="this.style.display='none'"
           />
         </div>
@@ -116,6 +119,8 @@ const photoAlbums = [
               class="album-cover"
               loading="lazy"
               decoding="async"
+              width="900"
+              height="1350"
               onerror="this.closest('.album-card').classList.add('no-img')"
             />
             <div class="album-overlay">
