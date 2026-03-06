@@ -1,0 +1,116 @@
+﻿---
+import '../styles/global.css';
+import NavBar from '../components/NavBar.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  canonical?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = 'Portfolio fotografico e sviluppo software di TCDev.',
+  ogImage = '/logo.jpg',
+  ogType = 'website',
+  canonical,
+  noindex = false,
+} = Astro.props;
+
+const siteUrl = 'https://tcdev.xyz';
+const canonicalUrl = canonical ? canonical : new URL(Astro.url.pathname, siteUrl).href;
+const fullTitle = title === 'TCDev' ? title : `${title} - TCDev`;
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'TCDev',
+  url: siteUrl,
+  inLanguage: 'it-IT',
+};
+
+const personSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'TCDev',
+  url: siteUrl,
+  sameAs: [
+    'https://github.com/TCDev69',
+    'https://linkedin.com/in/tcdev0',
+    'https://instagram.com/tcdev',
+  ],
+};
+---
+
+<!doctype html>
+<html lang="it" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    {noindex ? (
+      <meta name="robots" content="noindex,nofollow" />
+    ) : (
+      <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+    )}
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(ogImage, siteUrl).href} />
+    <meta property="og:site_name" content="TCDev" />
+    <meta property="og:locale" content="it_IT" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(ogImage, siteUrl).href} />
+    <meta name="twitter:site" content="@tcdev" />
+
+    <link rel="icon" href="/favicon.ico" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)}></script>
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)}></script>
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Vai al contenuto</a>
+    <NavBar />
+    <main id="main-content">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: var(--space-4);
+    z-index: 1000;
+    background: var(--color-blue-500);
+    color: #fff;
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-md);
+    font-weight: 500;
+    text-decoration: none;
+  }
+  .skip-link:focus {
+    left: var(--space-4);
+  }
+</style>
